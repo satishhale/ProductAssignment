@@ -1,0 +1,211 @@
+﻿@model IEnumerable<ProductAssignment.Models.ProductTbl>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@*<script type="text/javascript">
+    $(function () {
+        
+        $("sortingDate").change(function () {
+            var id = $("sortingDate option:selected").val();
+            $.ajax({
+                url: "/Test/SortingByDate/?id=" + id,
+                type: "get",
+                contentType: "Application/Json",
+                dataType: "Json",
+                success:function(result)
+                {
+                    var row = "";
+                    for (var i = 0; i < result.length; i++) {
+                        roew="<tr><td>"+result.
+                    }
+                },
+                error:function(error)
+                {
+                    alert("Somthing Went Wrong")
+                }
+
+            });
+
+        });
+
+    });
+</script>*@
+
+
+<br />
+@if(TempData["save"]!=null)
+{
+    <div class="alert alert-success"style="font-size:x-large">
+        <a class="close"data-dissmiss="close"aria-label="close">&times;</a>
+        @TempData["save"]
+    </div>
+}
+@if (TempData["edit"] != null)
+{
+    <div class="alert alert-success" style="font-size:x-large">
+        <a class="close" data-dissmiss="close" aria-label="close">&times;</a>
+        @TempData["edit"]
+    </div>
+}
+@if (TempData["delete"] != null)
+{
+    <div class="alert alert-danger" style="font-size:x-large">
+        <a class="close" data-dissmiss="close" aria-label="close">&times;</a>
+        @TempData["delete"]
+    </div>
+}
+<br />
+
+    <table class="table">
+        <tr>
+            <td>
+                @Html.ActionLink("Create New", "Create", "", new { @class = "btn btn-success" })  |&nbsp; &nbsp; &nbsp; &nbsp;
+
+                @Html.ActionLink("Sort Name ASC", "Index", new { ASC ="acending"  }, new { @class = "btn btn-primary" })  |&nbsp; &nbsp; &nbsp; &nbsp;
+                @Html.ActionLink("Sort Name DEC", "Index", new { DEC = "decending" }, new { @class = "btn btn-warning" })  |&nbsp; &nbsp; &nbsp; &nbsp;
+                @Html.ActionLink("ALL Record", "Index", "", new { @class = "btn btn-info" })  |&nbsp; &nbsp; &nbsp; &nbsp;
+
+              @using (Html.BeginForm())
+              {
+              
+                  @*@Html.TextBox("name", null, new { @class = "form-control col-md-offset-6" })*@
+                  <div class="col-md-offset-8 ">
+                      <input type="text" name="name" placeholder="Product Name" />
+                      <input type="submit" value="Search" class="btn btn-success" />
+
+                  </div>
+                  
+              }
+               
+
+            </td>
+        </tr>
+    </table>
+    
+
+
+
+<div class="text-danger text-center" style="color:black;background-color:darkkhaki;font-size:medium">
+     Product List
+    
+    <table class="table table-bordered table-striped well"id="tbl1">
+        <tr>
+            <th>
+                Sr.No
+            </th>
+            <th>
+                Product Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                IsGstApplicable
+            </th>
+            <th>
+                Purchase Date
+            </th>
+            <th>
+                Expiry Date
+            </th>
+            <th>
+                Color
+            </th>
+            <th>Action</th>
+        </tr>
+        @{ Int64 i = 1;}
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @i
+                        @{ i = i + 1;}
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @if (item.IsGstApplicable == true)
+                        {
+                            @:Yes
+                        }
+                       else
+                       {
+                            @:No
+                       }
+                           
+                    </td>
+                    <td>
+                        @if (item.PurchaseDate != null)
+                        {
+                            @item.PurchaseDate.Value.ToShortDateString()
+                        }
+                        else
+                        {
+                            @:No Date
+                    }
+
+                    </td>
+                    <td>
+                        @if (item.ExpiryDate != null)
+                        {
+                            @item.ExpiryDate.Value.ToShortDateString()
+                        }
+                        else
+                        {
+                            @:No Date
+                    }
+
+                    </td>
+                    <td>
+                        @{
+                            switch (item.Color)
+                            {
+                                case 1:
+                                    @:Red
+                             break;
+                                case 2:
+                                    @:Black
+                             break;
+                                case 3:
+                                    @:Pink
+                             break;
+                                case 4:
+                                    @:White
+                             break;
+                                case 5:
+                                    @:Purple
+                             break;
+                                default:
+                                    @: No_Color
+                             break;
+                            }
+
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new { @class = "btn btn-warning" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ProductID }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new { @class = "btn btn-danger",@onclick="return confirm('Are you sure want to delete this record....?')"})
+                    </td>
+                </tr>
+                                }
+                            }
+
+
+    </table>
+</div>

@@ -1,0 +1,116 @@
+﻿@model ProductAssignment.Models.ProductTbl
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <br />
+    
+    <div class="dl-horizontal">
+        <div class="well" style="color:black;background-color:darkkhaki;">
+            Details Product
+
+            <table class="table table-bordered well">
+                <tr>
+                    <th>
+                        ProductID
+                    </th>
+                    <td>
+                        @Model.ProductID
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Product Name
+                    </th>
+                    <td>
+                        @Model.ProductName
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Price
+                    </th>
+                    <td>
+                        @Model.Price
+                    </td>
+                </tr>
+                <tr>
+
+                    <th>
+                        Quantity
+                    </th>
+                    <td>
+                        @Model.Quantity
+                    </td>
+                    </tr>
+                <tr>
+                    <th>
+                        Purchase Date
+                    </th>
+                    <td>
+                        @if (Model.PurchaseDate != null)
+                        {
+                            @Model.PurchaseDate.Value.ToShortDateString()
+                        }
+                        else
+                        {
+                            @:
+                        }
+
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Expiry Date
+                    </th>
+                    <td>
+                        @if (Model.ExpiryDate != null)
+                        {
+                            @Model.ExpiryDate.Value.ToShortDateString()
+                        }
+                        else
+                        {
+                            @:
+                        }
+
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        IsGstApplicable
+                    </th>
+                    <td>
+                        @if(Model.IsGstApplicable==true)
+                        {
+                            @:Yes
+                        }
+                        else
+                        {
+                            @:No
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Color
+                    </th>
+                    <td>
+                        @Model.Color
+                    </td>
+                </tr>
+        </table>
+          
+
+
+    </div>
+        @Html.ActionLink("Back to List", "Index", "", new { @class = "btn btn-primary" })
+
+
+
+</div>
+</div>
+
