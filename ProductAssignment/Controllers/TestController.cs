@@ -119,7 +119,7 @@ namespace ProductAssignment.Controllers
 
             List<product> pr = new List<product>();
             pr.Add(new product() { ColorID = 1, ColorName = "Red" });
-
+          
             pr.Add(new product() { ColorID = 2, ColorName = "Black" });
 
             pr.Add(new product() { ColorID = 3, ColorName = "Pink" });
@@ -127,7 +127,7 @@ namespace ProductAssignment.Controllers
             pr.Add(new product() { ColorID = 4, ColorName = "White" });
 
             pr.Add(new product() { ColorID = 5, ColorName = "Purple" });
-
+            pr.Add(new product() { ColorID = 6, ColorName = "Black" });
             ViewBag.color = new SelectList(pr.ToList(), "ColorID", "ColorName",data.Color);
             return View(p);
         }
